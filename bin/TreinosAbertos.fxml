@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="830.0">
+         <children>
+            <Button fx:id="btnCarregarTreinosAbertos" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCarregarTreinosAbertos_Click" text="Carregar Treinos Abertos" AnchorPane.leftAnchor="14.0" />
+            <ListView fx:id="lstTreinosAbertos" layoutX="14.0" layoutY="49.0" prefHeight="200.0" prefWidth="398.0" AnchorPane.leftAnchor="14.0" />
+            <Button fx:id="btnAvaliarTreino" layoutX="82.0" layoutY="288.0" mnemonicParsing="false" onAction="#btnAvaliarTreino_Click" text="PSE" AnchorPane.leftAnchor="82.0" />
+            <TextField fx:id="txtAvaliacao" layoutX="20.0" layoutY="288.0" prefHeight="25.0" prefWidth="53.0" AnchorPane.leftAnchor="20.0" />
+            <Label layoutX="20.0" layoutY="262.0" text="Informe a PSE do treino (0 a 10)" AnchorPane.leftAnchor="20.0" />
+            <Button fx:id="btnSalvarAvaliacoes" layoutX="360.0" layoutY="288.0" mnemonicParsing="false" onAction="#btnSalvarAvaliacoes_Click" text="Salvar" />
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>

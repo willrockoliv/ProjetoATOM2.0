@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <Button fx:id="btnHistPesquisarAlunos" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnHistPesquisarAlunos_Click" text="Pesquisar Alunos" />
+      <ListView fx:id="lstHistAlunos" layoutX="14.0" layoutY="46.0" onMouseClicked="#lstHistAlunos_Click" prefHeight="70.0" prefWidth="295.0" />
+      <Label layoutX="14.0" layoutY="138.0" text="Histórico do Treino:" />
+      <ListView fx:id="lstHistTreino" layoutX="14.0" layoutY="155.0" prefHeight="263.0" prefWidth="673.0" />
+      <Label layoutX="538.0" layoutY="433.0" text="Volume Total:" />
+      <Label fx:id="lblHistVolumeTotal" layoutX="624.0" layoutY="433.0" />
+   </children>
+</Pane>

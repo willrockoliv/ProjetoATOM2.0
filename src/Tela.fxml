@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <left>
+      <VBox prefHeight="400.0" prefWidth="169.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="275.0" fitWidth="303.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@ATOM.jpg" />
+               </image>
+            </ImageView>
+            <Accordion>
+              <panes>
+                <TitledPane animated="false" prefHeight="428.0" prefWidth="303.0" text="Treinos">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <VBox prefHeight="128.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button fx:id="btnIniciarTreino" mnemonicParsing="false" onAction="#btnIniciarTreino_Click" prefHeight="25.0" prefWidth="332.0" text="Iniciar Treino" />
+                                    <Button fx:id="btnTreinosAbertos" mnemonicParsing="false" onAction="#btnTreinosAbertos_Click" prefHeight="25.0" prefWidth="291.0" text="Treinos Abertos" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Relatórios">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="34.0" layoutY="-31.0" prefHeight="212.0" prefWidth="251.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button fx:id="btnHistorico" mnemonicParsing="false" onAction="#btnHistorico_Click" prefHeight="25.0" prefWidth="307.0" text="Histórico" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" prefHeight="531.0" prefWidth="303.0" text="Cadastros">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="251.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button fx:id="btnCadAluno" mnemonicParsing="false" onAction="#btnCadAluno_Click" prefHeight="25.0" prefWidth="247.0" text="Aluno" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <Pane id="MainPane" fx:id="MainPane" prefHeight="400.0" prefWidth="398.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
