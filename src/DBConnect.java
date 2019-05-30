@@ -1,24 +1,31 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class DBConnect {
 
 	private static Connection connection =  null;
 	
 	public static Connection getConnection() throws Exception {
-		String url = "jdbc:mysql://localhost:8080/ATOM";
-		String user="root";
-		String password="123456";
 		
+		if (connection != null)
+			return connection;
+		else  {
 		
-		connection = DriverManager.getConnection(url,
-				                                 user,
-				                                 password);
-		
-		connection.setAutoCommit(true);
-		
-		return connection;
-		
+			String driver = "com.mysql.jdbc.Driver";
+			String url = "jdbc:mysql://localhost:3306/FTT";
+			String user="scott";
+			String password="tiger";
+			
+			Class.forName(driver); //Opcional
+			connection = DriverManager.getConnection(url,
+					                                 user,
+					                                 password);
+			
+			connection.setAutoCommit(true);
+			
+			return connection;
 		} //else
 		
 	} //Connection
 	
+}

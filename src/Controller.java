@@ -69,14 +69,14 @@ public class Controller implements Initializable {
 
 	public void CarregalstAbrirTreinoExercicios() {
 		ExercicioDAO exercicioDAO = new ExercicioDAO();
-		listAbrirTreinoExercicioVO = exercicioDAO.GetExercicioPorDivisao(
-				lstAbrirTreinoSelecionarDivisao.getSelectionModel().getSelectedItem().toString());
+		listAbrirTreinoExercicioVO.clear();
 		lstAbrirTreinoExercicios.getItems().clear();
+		listAbrirTreinoExercicioVO = exercicioDAO.GetExercicioPorDivisao(lstAbrirTreinoSelecionarDivisao.getSelectionModel().getSelectedItem().toString());
 		for (ExercicioVO exercicioVO : listAbrirTreinoExercicioVO) {
 
-			String exercicio = "Exerc�cio: " + exercicioVO.exercicio + " | " + "Carga: " + exercicioVO.carga + " | "
-					+ "Series: " + exercicioVO.series + " | " + "Repeti��es: " + exercicioVO.repeticoes + " | "
-					+ "Divis�o: " + exercicioVO.divisao + " | Volume : " + exercicioVO.volume;
+			String exercicio = "Exercício: " + exercicioVO.exercicio + " | " + "Carga: " + exercicioVO.carga + " | "
+					+ "Series: " + exercicioVO.series + " | " + "Repetições: " + exercicioVO.repeticoes + " | "
+					+ "Divisão: " + exercicioVO.divisao + " | Volume : " + exercicioVO.volume;
 
 			lstAbrirTreinoExercicios.getItems().add(exercicio);
 		}
@@ -91,40 +91,40 @@ public class Controller implements Initializable {
 			try {
 				Integer.parseInt(txtAbrirTreinoCarga.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Carga Inv�lida");
+				JOptionPane.showMessageDialog(null, "Carga Inválida");
 				return false;
 			}
 
 		if (txtAbrirTreinoSeries.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe as S�ries");
+			JOptionPane.showMessageDialog(null, "Informe as Séries");
 			return false;
 		} else
 			try {
 				Integer.parseInt(txtAbrirTreinoSeries.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "S�ries Inv�lidas");
+				JOptionPane.showMessageDialog(null, "Séries Inválidas");
 				return false;
 			}
 
 		if (txtAbrirTreinoRepet.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe as Repeti��es");
+			JOptionPane.showMessageDialog(null, "Informe as Repetições");
 			return false;
 		} else
 			try {
 				Integer.parseInt(txtAbrirTreinoRepet.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Repeti��es Inv�lidas");
+				JOptionPane.showMessageDialog(null, "Repetições Inválidas");
 				return false;
 			}
 
 		if (txtAbrirTreinoRepet.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe as Repeti��es");
+			JOptionPane.showMessageDialog(null, "Informe as Repetições");
 			return false;
 		} else
 			try {
 				Integer.parseInt(txtAbrirTreinoRepet.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Repeti��es Inv�lidas");
+				JOptionPane.showMessageDialog(null, "Repetições Inválidas");
 				return false;
 			}
 
@@ -138,7 +138,7 @@ public class Controller implements Initializable {
 		}
 
 		if (lstAbrirTreinoSelecionarDivisao.getSelectionModel().getSelectedIndex() == -1) {
-			JOptionPane.showMessageDialog(null, "Selecione a Divis�o");
+			JOptionPane.showMessageDialog(null, "Selecione a Divisão");
 			return false;
 		}
 
@@ -148,7 +148,7 @@ public class Controller implements Initializable {
 	public void AbrirTreino() throws IOException {
 
 		TreinoDAO treinoDAO = new TreinoDAO();
-
+		
 		TreinoVO treinoVO = new TreinoVO();
 		treinoVO.id = treinoDAO.ProximoId();
 		treinoVO.id_aluno = listAlunoVO.get(lstAbrirTreinoAlunos.getSelectionModel().getSelectedIndex()).id;
@@ -157,7 +157,7 @@ public class Controller implements Initializable {
 		treinoVO.avaliacao = -1;
 
 		ExercicioDAO exercicioDAO = new ExercicioDAO();
-
+		
 		ArrayList<ExercicioVO> listExercicioVO = exercicioDAO.GetExercicioPorDivisao(treinoVO.divisao);
 		for (ExercicioVO exercicioVO : listExercicioVO) {
 			treinoVO.volume += exercicioVO.volume;
@@ -229,7 +229,7 @@ public class Controller implements Initializable {
 	public void btnAbrirTreinoCarregarAlunos_Click(ActionEvent actionEvent) {
 
 		AlunoDAO alunoDAO = new AlunoDAO();
-
+		
 		listAlunoVO = alunoDAO.GetTotosAlunosAtivos();
 
 		lstAbrirTreinoAlunos.getItems().clear();
@@ -255,9 +255,11 @@ public class Controller implements Initializable {
 		lblAbrirTreinoSexo.setText(aluno.sexo);
 
 		ExercicioDAO exercicioDAO = new ExercicioDAO();
-
+		
 		ArrayList<String> listDivisoes = exercicioDAO.GetDivisoes(aluno.id);
 
+		lstAbrirTreinoSelecionarDivisao.getItems().clear();
+		
 		for (String string : listDivisoes)
 			lstAbrirTreinoSelecionarDivisao.getItems().add(string);
 	}
@@ -281,16 +283,22 @@ public class Controller implements Initializable {
 		if (lstAbrirTreinoExercicios.getSelectionModel().getSelectedIndex() != -1) {
 			if (ValidaCamposEditarExercicio()) {
 
-				ExercicioVO exercicioVO = listAbrirTreinoExercicioVO
-						.get(lstAbrirTreinoExercicios.getSelectionModel().getSelectedIndex());
-				exercicioVO.carga = Double.valueOf(txtAbrirTreinoCarga.getText());
-				exercicioVO.repeticoes = Integer.valueOf(txtAbrirTreinoRepet.getText());
-				exercicioVO.series = Integer.valueOf(txtAbrirTreinoSeries.getText());
-				exercicioVO.volume = exercicioVO.carga * exercicioVO.repeticoes * exercicioVO.series;
+				int index = lstAbrirTreinoExercicios.getSelectionModel().getSelectedIndex();
+				
+				listAbrirTreinoExercicioVO.get(index).carga = Double.valueOf(txtAbrirTreinoCarga.getText());
+				listAbrirTreinoExercicioVO.get(index).repeticoes = Integer.valueOf(txtAbrirTreinoRepet.getText());
+				listAbrirTreinoExercicioVO.get(index).series = Integer.valueOf(txtAbrirTreinoSeries.getText());
+				listAbrirTreinoExercicioVO.get(index).volume = listAbrirTreinoExercicioVO.get(index).carga  * listAbrirTreinoExercicioVO.get(index).repeticoes * listAbrirTreinoExercicioVO.get(index).series;
+				
+//				ExercicioVO exercicioVO = listAbrirTreinoExercicioVO.get(lstAbrirTreinoExercicios.getSelectionModel().getSelectedIndex());
+//				exercicioVO.carga = Double.valueOf(txtAbrirTreinoCarga.getText());
+//				exercicioVO.repeticoes = Integer.valueOf(txtAbrirTreinoRepet.getText());
+//				exercicioVO.series = Integer.valueOf(txtAbrirTreinoSeries.getText());
+//				exercicioVO.volume = exercicioVO.carga * exercicioVO.repeticoes * exercicioVO.series;
 
 				ExercicioDAO exercicioDAO = new ExercicioDAO();
-
-				exercicioDAO.Alterar(exercicioVO);
+				
+				exercicioDAO.Salvar(listAbrirTreinoExercicioVO, listAbrirTreinoExercicioVO.get(0).id_aluno);
 
 				CarregalstAbrirTreinoExercicios();
 
@@ -330,7 +338,7 @@ public class Controller implements Initializable {
 			try {
 				Integer.parseInt(txtAvaliacao.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "PSE Inv�lida");
+				JOptionPane.showMessageDialog(null, "PSE Inválida");
 				return false;
 			}
 		}
@@ -348,7 +356,7 @@ public class Controller implements Initializable {
 		lstTreinosAbertos.getItems().clear();
 
 		for (int i = 0; i < listTreinoVO.size(); i++) {
-
+			
 			AlunoDAO alunoDAO = new AlunoDAO();
 
 			AlunoVO alunoVO = alunoDAO.GetAlunoPorID(listTreinoVO.get(i).id_aluno);
@@ -356,7 +364,7 @@ public class Controller implements Initializable {
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
 			String treino = "Aluno: " + alunoVO.nome + " | Data: " + formato.format(listTreinoVO.get(i).data)
-					+ " | Divis�o: " + listTreinoVO.get(i).divisao + " | PSE: " + listTreinoVO.get(i).avaliacao;
+					+ " | Divisão: " + listTreinoVO.get(i).divisao + " | PSE: " + listTreinoVO.get(i).avaliacao;
 
 			lstTreinosAbertos.getItems().add(treino);
 		}
@@ -377,7 +385,7 @@ public class Controller implements Initializable {
 	public void btnCarregarTreinosAbertos_Click(ActionEvent actionEvent) {
 
 		TreinoDAO treinoDAO = new TreinoDAO();
-
+		
 		listTreinoVO = treinoDAO.GetTotosTreinosAbertos();
 		CarregarTreinosAbertos(listTreinoVO);
 	}
@@ -397,13 +405,13 @@ public class Controller implements Initializable {
 	public void btnSalvarAvaliacoes_Click(ActionEvent actionEvent) throws IOException {
 
 		TreinoDAO treinoDAO = new TreinoDAO();
-
+		
 		treinoDAO.Alterar(listTreinoVO);
 
 		for (TreinoVO treinoVO : listTreinoVO) {
 
 			if (treinoVO.avaliacao != -1) {
-
+				
 				ExercicioDAO exercicioDAO = new ExercicioDAO();
 
 				listExercicioVO = exercicioDAO.GetExercicioPorId_aluno(treinoVO.id_aluno);
@@ -431,7 +439,7 @@ public class Controller implements Initializable {
 			}
 		}
 
-		JOptionPane.showMessageDialog(null, "Avalia��es salvas com sucesso");
+		JOptionPane.showMessageDialog(null, "Avaliaçõees salvas com sucesso");
 		listTreinoVO = treinoDAO.GetTotosTreinosAbertos();
 		CarregarTreinosAbertos(listTreinoVO);
 	}
@@ -467,17 +475,17 @@ public class Controller implements Initializable {
 		ArrayList<TreinoVO> listTreinoVO = treinoDAO.GetTreinoPorID_aluno(alunoVO.id);
 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
+		
 		double volumeTotal = 0;
 
 		for (TreinoVO treinoVO : listTreinoVO) {
 			if (treinoVO.avaliacao != -1) {
-
-				String dados = formato.format(treinoVO.data) + " | Divis�o: " + treinoVO.divisao + " | " + "Volume: "
+				
+				String dados = formato.format(treinoVO.data) + " | Divisão: " + treinoVO.divisao + " | " + "Volume: "
 						+ treinoVO.volume + " | " + "PSE do Aluno: " + treinoVO.avaliacao;
-
+				
 				volumeTotal += treinoVO.volume;
-
+				
 				lstHistTreino.getItems().add(dados);
 			}
 		}
@@ -519,12 +527,12 @@ public class Controller implements Initializable {
 			try {
 				Integer.parseInt(txtCadAlunoIdade.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Idade Inv�lida");
+				JOptionPane.showMessageDialog(null, "Idade Inválida");
 				return false;
 			}
 
 		if (txtCadAlunoEnd.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe o Endere�o");
+			JOptionPane.showMessageDialog(null, "Informe o Endereço");
 			return false;
 		}
 
@@ -590,7 +598,7 @@ public class Controller implements Initializable {
 	public boolean ValidaCamposExercicio() {
 
 		if (txtTreinoExerc.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe o Exerc�cio");
+			JOptionPane.showMessageDialog(null, "Informe o Exercício");
 			return false;
 		}
 
@@ -601,37 +609,37 @@ public class Controller implements Initializable {
 			try {
 				Integer.parseInt(txtTreinoCarga.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Carga Inv�lida");
+				JOptionPane.showMessageDialog(null, "Carga Inválida");
 				return false;
 			}
 		}
 
 		if (txtTreinoSeries.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe as S�ries");
+			JOptionPane.showMessageDialog(null, "Informe as Séries");
 			return false;
 		} else {
 			try {
 				Integer.parseInt(txtTreinoSeries.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Valor S�ries Inv�lido");
+				JOptionPane.showMessageDialog(null, "Valor Séries Inválido");
 				return false;
 			}
 		}
 
 		if (txtTreinoRepet.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe as Repeti��es");
+			JOptionPane.showMessageDialog(null, "Informe as Repetições");
 			return false;
 		} else {
 			try {
 				Integer.parseInt(txtTreinoRepet.getText());
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Valor Repeti��es Inv�lido");
+				JOptionPane.showMessageDialog(null, "Valor Repetições Inválido");
 				return false;
 			}
 		}
 
 		if (txtTreinoDivisao.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Informe a Divis�o");
+			JOptionPane.showMessageDialog(null, "Informe a Divisão");
 			return false;
 		}
 
@@ -663,9 +671,9 @@ public class Controller implements Initializable {
 
 		for (ExercicioVO exercicioVO : listExercicioVO) {
 
-			String exercicio = "Exerc�cio: " + exercicioVO.exercicio + " | " + "Carga: " + exercicioVO.carga + " | "
-					+ "Series: " + exercicioVO.series + " | " + "Repeti��es: " + exercicioVO.repeticoes + " | "
-					+ "Divis�o: " + exercicioVO.divisao + " | Volume : " + exercicioVO.volume;
+			String exercicio = "Exercício: " + exercicioVO.exercicio + " | " + "Carga: " + exercicioVO.carga + " | "
+					+ "Series: " + exercicioVO.series + " | " + "Repetições: " + exercicioVO.repeticoes + " | "
+					+ "Divisão: " + exercicioVO.divisao + " | Volume : " + exercicioVO.volume;
 
 			lstTreinoExercicios.getItems().add(exercicio);
 		}
@@ -731,13 +739,12 @@ public class Controller implements Initializable {
 
 			ExercicioDAO exercicioDAO = new ExercicioDAO();
 			AlunoDAO alunoDAO = new AlunoDAO();
-
+			
 			if (lstCadAlunoPesquisa.getSelectionModel().getSelectedIndex() == -1) {
 				try {
 					alunoVO.id = alunoDAO.ProximoId();
 					alunoDAO.Salvar(alunoVO);
-					if (listExercicioVO.size() > 0)
-						exercicioDAO.Salvar(listExercicioVO);
+					exercicioDAO.Salvar(listExercicioVO, alunoVO.id);
 					JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
 					LimpaCamposCadAluno();
 				} catch (Exception e) {
@@ -747,7 +754,8 @@ public class Controller implements Initializable {
 				try {
 					alunoVO.id = listAlunoVO.get(lstCadAlunoPesquisa.getSelectionModel().getSelectedIndex()).id;
 					alunoDAO.Alterar(alunoVO);
-					exercicioDAO.Alterar(listExercicioVO);
+//					exercicioDAO.Excluir(alunoVO.id);
+					exercicioDAO.Salvar(listExercicioVO,alunoVO.id);
 					JOptionPane.showMessageDialog(null, "Alterado com Sucesso!");
 					LimpaCamposCadAluno();
 				} catch (Exception e) {
@@ -818,9 +826,9 @@ public class Controller implements Initializable {
 
 	@FXML
 	public void btnTreinoInserir_Click(ActionEvent actionEvent) {
-
+	
 		AlunoDAO alunoDAO = new AlunoDAO();
-
+		
 		if (ValidaCamposExercicio()) {
 
 			ExercicioVO exercicioVO = new ExercicioVO();
@@ -835,9 +843,9 @@ public class Controller implements Initializable {
 			exercicioVO.divisao = txtTreinoDivisao.getText();
 			exercicioVO.volume = exercicioVO.carga * exercicioVO.repeticoes * exercicioVO.series;
 
-			String dado = "Exerc�cio: " + exercicioVO.exercicio + " | " + "Carga: " + exercicioVO.carga + " | "
-					+ "Series: " + exercicioVO.series + " | " + "Repeti��es: " + exercicioVO.repeticoes + " | "
-					+ "Divis�o: " + exercicioVO.divisao + " | Volume: " + exercicioVO.volume;
+			String dado = "Exercício: " + exercicioVO.exercicio + " | " + "Carga: " + exercicioVO.carga + " | "
+					+ "Series: " + exercicioVO.series + " | " + "Repetições: " + exercicioVO.repeticoes + " | "
+					+ "Divisão: " + exercicioVO.divisao + " | Volume: " + exercicioVO.volume;
 
 			lstTreinoExercicios.getItems().add(dado);
 			listExercicioVO.add(exercicioVO);

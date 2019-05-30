@@ -20,25 +20,25 @@ public class ExercicioDAO {
 
 	} // ExercicioDAO
 
-	public int ProximoId() {
-
-		int prox_id = 0;
-
-		try {
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT COUNT(*) AS ID FROM ATOM.EXERCICIO");
-
-			ResultSet rs = preparedStatement.executeQuery();
-
-			if (rs.next())
-				prox_id = rs.getInt("ID") + 1;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return prox_id;
-	}
+//	public int ProximoId() {
+//
+//		int prox_id = 0;
+//
+//		try {
+//			PreparedStatement preparedStatement = connection
+//					.prepareStatement("SELECT COUNT(*) AS ID FROM ATOM.EXERCICIO");
+//
+//			ResultSet rs = preparedStatement.executeQuery();
+//
+//			if (rs.next())
+//				prox_id = rs.getInt("ID") + 1;
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return prox_id;
+//	}
 
 	public ArrayList<ExercicioVO> GetTotosExercicios() {
 
@@ -53,7 +53,7 @@ public class ExercicioDAO {
 
 				ExercicioVO exercicioVO = new ExercicioVO();
 
-				exercicioVO.id = rs.getInt("ID");
+//				exercicioVO.id = rs.getInt("ID");
 				exercicioVO.id_aluno = rs.getInt("ID_ALUNO");
 				exercicioVO.exercicio = rs.getString("EXERCICIO");
 				exercicioVO.carga = rs.getDouble("CARGA");
@@ -71,32 +71,32 @@ public class ExercicioDAO {
 		return listExercicioVO;
 	}
 
-	public ExercicioVO GetExercicioPorID(int id) {
-
-		ExercicioVO exercicioVO = new ExercicioVO();
-
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * from ATOM.EXERCICIO WHERE ID=?");
-
-			preparedStatement.setLong(1, id);
-			ResultSet rs = preparedStatement.executeQuery();
-
-			if (rs.next()) {
-				exercicioVO.id = rs.getInt("ID");
-				exercicioVO.id_aluno = rs.getInt("ID_ALUNO");
-				exercicioVO.exercicio = rs.getString("EXERCICIO");
-				exercicioVO.carga = rs.getDouble("CARGA");
-				exercicioVO.series = rs.getInt("SERIES");
-				exercicioVO.repeticoes = rs.getInt("REPETICOES");
-				exercicioVO.divisao = rs.getString("DIVISAO");
-				exercicioVO.volume = rs.getDouble("VOLUME");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return exercicioVO;
-	}
+//	public ExercicioVO GetExercicioPorID(int id) {
+//
+//		ExercicioVO exercicioVO = new ExercicioVO();
+//
+//		try {
+//			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * from ATOM.EXERCICIO WHERE ID=?");
+//
+//			preparedStatement.setLong(1, id);
+//			ResultSet rs = preparedStatement.executeQuery();
+//
+//			if (rs.next()) {
+//				exercicioVO.id = rs.getInt("ID");
+//				exercicioVO.id_aluno = rs.getInt("ID_ALUNO");
+//				exercicioVO.exercicio = rs.getString("EXERCICIO");
+//				exercicioVO.carga = rs.getDouble("CARGA");
+//				exercicioVO.series = rs.getInt("SERIES");
+//				exercicioVO.repeticoes = rs.getInt("REPETICOES");
+//				exercicioVO.divisao = rs.getString("DIVISAO");
+//				exercicioVO.volume = rs.getDouble("VOLUME");
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return exercicioVO;
+//	}
 
 	public ArrayList<ExercicioVO> GetExercicioPorId_aluno(int id_aluno) {
 
@@ -111,7 +111,7 @@ public class ExercicioDAO {
 
 				ExercicioVO exercicioVO = new ExercicioVO();
 
-				exercicioVO.id = rs.getInt("ID");
+//				exercicioVO.id = rs.getInt("ID");
 				exercicioVO.id_aluno = rs.getInt("ID_ALUNO");
 				exercicioVO.exercicio = rs.getString("EXERCICIO");
 				exercicioVO.carga = rs.getDouble("CARGA");
@@ -143,7 +143,7 @@ public class ExercicioDAO {
 
 				ExercicioVO exercicioVO = new ExercicioVO();
 
-				exercicioVO.id = rs.getInt("ID");
+//				exercicioVO.id = rs.getInt("ID");
 				exercicioVO.id_aluno = rs.getInt("ID_ALUNO");
 				exercicioVO.exercicio = rs.getString("EXERCICIO");
 				exercicioVO.carga = rs.getDouble("CARGA");
@@ -167,7 +167,7 @@ public class ExercicioDAO {
 
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT DISTINCT DIVISAO from ATOM.EXERCICIO WHERE ID=?");
+					.prepareStatement("SELECT DISTINCT DIVISAO from ATOM.EXERCICIO WHERE ID_ALUNO=?");
 			preparedStatement.setLong(1, id_aluno);
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -188,39 +188,11 @@ public class ExercicioDAO {
 
 		try {
 		
-			String sql = "INSERT INTO ATOM.EXERCICIO (ID, ID_ALUNO, EXERCICIO, CARGA, SERIES, REPETICOES, DIVISAO, VOLUME) VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO ATOM.EXERCICIO (ID_ALUNO, EXERCICIO, CARGA, SERIES, REPETICOES, DIVISAO, VOLUME) VALUES(?,?,?,?,?,?,?)";
 
 			PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
 
-			preparedStatement.setInt(1, exercicioVO.id);
-			preparedStatement.setInt(2, exercicioVO.id_aluno);
-			preparedStatement.setString(3, exercicioVO.exercicio);
-			preparedStatement.setDouble(4, exercicioVO.carga);
-			preparedStatement.setInt(5, exercicioVO.series);
-			preparedStatement.setInt(6, exercicioVO.repeticoes);
-			preparedStatement.setString(7, exercicioVO.divisao);
-			preparedStatement.setDouble(8, exercicioVO.volume);
-
-			preparedStatement.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} // try
-	}
-
-	public void Salvar(ArrayList<ExercicioVO> listExercicioVO) throws IOException {
-		for (ExercicioVO exercicioVO : listExercicioVO)
-			Salvar(exercicioVO);
-	}
-
-	public void Alterar(ExercicioVO exercicioVO) throws IOException {
-
-		try {
-
-			PreparedStatement preparedStatement = connection.prepareStatement(
-					"UPDATE ATOM.ALUNO ID_ALUNO=?, EXERCICIO=?, CARGA=?, SERIES=?, REPETICOES=?, DIVISAO=?, VOLUME=? WHERE ID=?");
-
-			// Parameters start with 1
+//			preparedStatement.setInt(1, exercicioVO.id);
 			preparedStatement.setInt(1, exercicioVO.id_aluno);
 			preparedStatement.setString(2, exercicioVO.exercicio);
 			preparedStatement.setDouble(3, exercicioVO.carga);
@@ -229,19 +201,87 @@ public class ExercicioDAO {
 			preparedStatement.setString(6, exercicioVO.divisao);
 			preparedStatement.setDouble(7, exercicioVO.volume);
 
-			preparedStatement.setInt(8, exercicioVO.id);
-
 			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // try
+	}
+
+	public void Salvar(ArrayList<ExercicioVO> listExercicioVO, int id_aluno) throws IOException {
+		Excluir(id_aluno);
+		for (ExercicioVO exercicioVO : listExercicioVO) {
+			Salvar(exercicioVO);		
+		}
+	}
+	
+	public void Excluir(int id_aluno) throws IOException {
+
+		String sql = "DELETE FROM ATOM.EXERCICIO WHERE ID_ALUNO=?";
+
+		try {
+
+			PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
+
+			preparedStatement.setLong(1, id_aluno);
+			
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 	}
 
-	public void Alterar(ArrayList<ExercicioVO> listExercicioVO) throws IOException {
-		for (ExercicioVO exercicioVO : listExercicioVO) {
-			Alterar(exercicioVO);
-		}
-	}
+//	public void Alterar(ExercicioVO exercicioVO) throws IOException {
+//
+//		try {
+//
+//			PreparedStatement preparedStatement = connection.prepareStatement(
+//					"UPDATE ATOM.EXERCICIO SET ID_ALUNO=?, EXERCICIO=?, CARGA=?, SERIES=?, REPETICOES=?, DIVISAO=?, VOLUME=? WHERE ID=?");
+//
+//			// Parameters start with 1
+//			preparedStatement.setInt(1, exercicioVO.id_aluno);
+//			preparedStatement.setString(2, exercicioVO.exercicio);
+//			preparedStatement.setDouble(3, exercicioVO.carga);
+//			preparedStatement.setInt(4, exercicioVO.series);
+//			preparedStatement.setInt(5, exercicioVO.repeticoes);
+//			preparedStatement.setString(6, exercicioVO.divisao);
+//			preparedStatement.setDouble(7, exercicioVO.volume);
+//
+////			preparedStatement.setInt(8, exercicioVO.id);
+//
+//			preparedStatement.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	public void Alterar(ArrayList<ExercicioVO> listExercicioVO) throws IOException {
+//		for (ExercicioVO exercicioVO : listExercicioVO) {
+//			
+//			
+//			try {
+//				PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) AS TESTE FROM ATOM.EXERCICIO WHERE ID=?");
+//
+//				preparedStatement.setLong(1, exercicioVO.id);
+//				ResultSet rs = preparedStatement.executeQuery();
+//
+//				int teste = 0;
+//				
+//				if (rs.next())
+//					teste = rs.getInt("TESTE");
+//				
+//				if(teste != 0)
+//					Alterar(exercicioVO);
+//				else
+//					Salvar(exercicioVO);
+//				
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
 }

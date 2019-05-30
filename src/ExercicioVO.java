@@ -1,6 +1,6 @@
 
 public class ExercicioVO {
-	public int id;
+//	public int id;
 	public int id_aluno;
 	public String exercicio;
 	public double carga;

@@ -57,7 +57,7 @@ public class AlunoDAO {
 				AlunoVO alunoVO = new AlunoVO();
 
 				alunoVO.id = rs.getInt("ID");
-				alunoVO.nome = rs.getString("NAME");
+				alunoVO.nome = rs.getString("NOME");
 				alunoVO.idade = rs.getInt("IDADE");
 				alunoVO.endereco = rs.getString("ENDERECO");
 				alunoVO.bairro = rs.getString("BAIRRO");
@@ -91,7 +91,7 @@ public class AlunoDAO {
 				AlunoVO alunoVO = new AlunoVO();
 
 				alunoVO.id = rs.getInt("ID");
-				alunoVO.nome = rs.getString("NAME");
+				alunoVO.nome = rs.getString("NOME");
 				alunoVO.idade = rs.getInt("IDADE");
 				alunoVO.endereco = rs.getString("ENDERECO");
 				alunoVO.bairro = rs.getString("BAIRRO");
@@ -123,7 +123,7 @@ public class AlunoDAO {
 
 			if (rs.next()) {
 				alunoVO.id = rs.getInt("ID");
-				alunoVO.nome = rs.getString("NAME");
+				alunoVO.nome = rs.getString("NOME");
 				alunoVO.idade = rs.getInt("IDADE");
 				alunoVO.endereco = rs.getString("ENDERECO");
 				alunoVO.bairro = rs.getString("BAIRRO");
@@ -179,7 +179,7 @@ public class AlunoDAO {
 		try {
 
 			PreparedStatement preparedStatement = connection.prepareStatement(
-					"UPDATE ATOM.ALUNO NOME=?, IDADE=?, ENDERECO=?, BAIRRO=?, CIDADE=?, UF=?, CELULAR=?, EMAIL=?, SEXO=?, ATIVO=? WHERE ID=?");
+					"UPDATE ATOM.ALUNO SET NOME=?, IDADE=?, ENDERECO=?, BAIRRO=?, CIDADE=?, UF=?, CELULAR=?, EMAIL=?, SEXO=?, ATIVO=? WHERE ID=?");
 
 			// Parameters start with 1
 			preparedStatement.setString(1, alunoVO.nome);

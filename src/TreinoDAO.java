@@ -184,7 +184,7 @@ public class TreinoDAO {
 		try {
 
 			PreparedStatement preparedStatement = connection.prepareStatement(
-					"UPDATE ATOM.TREINO ID_ALUNO=?, DATA=?, DIVISAO=?, AVALIACAO=?, VOLUME=? WHERE ID=?");
+					"UPDATE ATOM.TREINO SET ID_ALUNO=?, DATA=?, DIVISAO=?, AVALIACAO=?, VOLUME=? WHERE ID=?");
 
 			// Parameters start with 1
 			preparedStatement.setInt(1, treinoVO.id_aluno);

@@ -11,7 +11,7 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		
-		System.out.println("Iniciando Conex�o");
+		System.out.println("Iniciando Conexão");
 		try {
 			Connection con = DBConnect.getConnection();
 			System.out.println("Conexão estabelecida");
@@ -26,7 +26,6 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		
 		
 		File path = new File(".");
 		File diretorio = new File(path.getAbsolutePath()+"/src");
